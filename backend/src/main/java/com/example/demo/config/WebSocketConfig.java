@@ -13,7 +13,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOriginPatterns("*");
+                .setAllowedOriginPatterns(
+                        "http://localhost:5173",
+                        "http://localhost:3000",
+                        "https://stalcraft-wiki-project.ru",
+                        "https://www.stalcraft-wiki-project.ru"
+                );
     }
 
     @Override

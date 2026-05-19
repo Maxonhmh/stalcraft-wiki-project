@@ -64,13 +64,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/quests/**").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.POST, "/api/forum/topics/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/forum/topics/**").hasRole("ADMIN")
+
                         .requestMatchers(HttpMethod.DELETE, "/api/forum/messages/**").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.POST, "/api/admin/items/import").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.DELETE, "/api/forum/topics/**").hasRole("ADMIN")
-                        
+
                         .requestMatchers(HttpMethod.POST, "/api/uploads/images").hasRole("ADMIN")
 
                         .anyRequest().authenticated()
@@ -93,4 +93,10 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+
+
+
+    
 }
