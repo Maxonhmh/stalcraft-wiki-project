@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Forum WebSocket Test</title>
+</head>
+<body>
+    <h1>Forum WebSocket Test</h1>
+
+    <input id="nickname" placeholder="nickname" value="Anon-1234" />
+    <br />
+    <textarea id="content" placeholder="message">Hello from WebSocket</textarea>
+    <br />
+    <button onclick="sendMessage()">Send</button>
+
+    <h2>Messages</h2>
+    <pre id="messages"></pre>
+
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+
+    <script>
+        const messages = document.getElementById("messages");
+
+        const client = new StompJs.Client({
+            brokerURL: "ws://localhost:8080/ws",
+            debug: function (str) {
+                console.log(str);
+            },
+            reconnectDelay: 5000,
+            onConnect: function () {
+                messages.textContent += "Connected to WebSocket\n";
+
+                client.subscribe("/topic/forum", function (message) {
+                    const body = JSON.parse(message.body);
+                    messages.textContent += JSON.stringify(body, null, 2) + "\n\n";
+                });
+            },
+            onStompError: function (frame) {
+                messages.textContent += "Broker error: " + frame.headers["message"] + "\n";
+            }
+        });
+
+        client.activate();
+
+        function sendMessage() {
+            const nickname = document.getElementById("nickname").value;
+            const content = document.getElementById("content").value;
+
+            client.publish({
+                destination: "/app/forum.send",
+                body: JSON.stringify({
+                    content: content,
+                    anonKey: "browser-test-key"
+                })
+            });
+        }
+    </script>
+</body>
+</html>
