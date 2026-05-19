@@ -1,0 +1,37 @@
+# Java / Gradle
+backend/build/
+backend/.gradle/
+.gradle/
+build/
+out/
+
+# Node / React
+frontend/node_modules/
+frontend/dist/
+node_modules/
+dist/
+
+# Environment
+.env
+*.env
+application-local.properties
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Uploads
+backend/uploads/
+uploads/
+
+# Docker volumes / temp
+postgres_data/
+tmp/
