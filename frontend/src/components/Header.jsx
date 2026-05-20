@@ -31,9 +31,7 @@ export default function Header() {
           Форум
         </Link>
 
-        <Link to="/admin" className="nav-link nav-admin">
-          Admin
-        </Link>
+
       </nav>
     </header>
   );

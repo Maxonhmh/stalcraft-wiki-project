@@ -13,7 +13,7 @@ export default function Footer() {
         <Link to="/wiki">Wiki</Link>
         <Link to="/items">Предметы</Link>
         <Link to="/forum">Форум</Link>
-        <Link to="/admin">Admin</Link>
+
       </div>
     </footer>
   );
