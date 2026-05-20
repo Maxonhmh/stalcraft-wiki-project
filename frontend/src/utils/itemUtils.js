@@ -78,7 +78,20 @@ export const SUBCATEGORY_LABELS = {
   backpack: "Рюкзаки",
   container: "Контейнеры",
   artifact: "Артефакты",
+  biochemical: "Био",
+  electrophysical: "Электро",
+  gravity: "Грави",
+  other_arts: "Прочие",
+  thermal: "Термические",
+  heavy: "Тяжёлое",
+  shotgun_rifle: "Дробовики",
+  weapon_module: "Оружейные модули",
+  weapon_module_core: "Ядра модулей",
+  weapon_module_remover: "Снятие модулей",
+  armor_motif: "Мотивы брони",
 };
+
+
 
 
 
