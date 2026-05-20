@@ -5,12 +5,21 @@ Fullstack-приложение wiki по игре STALCRAFT с каталого�
 Проект разработан в рамках курсовой работы по теме:  
 **«Разработка Fullstack-приложения wiki по игре с реализацией анонимного форума»**.
 
+## Описание проекта
+
+STALCRAFT Wiki Project — это клиент-серверное веб-приложение, объединяющее справочную wiki-систему и форум для общения игроков. Пользователи могут просматривать статьи, квесты и каталог игровых предметов, а также отправлять сообщения на форум без обязательной регистрации.
+
+Администратор имеет доступ к панели управления, где может создавать и редактировать статьи, квесты, темы форума, удалять сообщения, блокировать пользователей форума и запускать импорт игровых предметов из открытой базы STALCRAFT Database.
+
+Для обмена данными между клиентом и сервером используется REST API. Для форума реализована отправка сообщений в реальном времени через WebSocket, благодаря чему новые сообщения появляются без перезагрузки страницы.
+
 ## Основные возможности
 
 - просмотр wiki-статей;
 - просмотр и создание квестов;
 - каталог игровых предметов;
 - отображение характеристик предметов;
+- отображение уровней улучшения предметов;
 - импорт предметов из открытой базы STALCRAFT Database;
 - анонимный форум;
 - отправка сообщений на форум через WebSocket;
@@ -88,69 +97,3 @@ stalcraft-wiki-project/
 ├── docker-compose.yml
 ├── README.md
 └── .env
-
-
-
-## Требования для локального запуска
-
-Для запуска проекта локально необходимо установить:
-
-- **Java 17** или выше;
-- **Gradle** или использовать встроенный Gradle Wrapper `gradlew`;
-- **Node.js 20+**;
-- **npm**;
-- **Docker Desktop**;
-- **Docker Compose**;
-- **Git**;
-- редактор кода, например **Visual Studio Code**.
-
-Проверить установленные версии можно командами:
-
-```bash
-java -version
-node -v
-npm -v
-docker --version
-docker compose version
-git --version
-
-
-Подготовка проекта
-
-Сначала необходимо склонировать репозиторий:
-
-git clone https://github.com/Maxonhmh/stalcraft-wiki-project.git
-cd stalcraft-wiki-project
-
-В корне проекта нужно создать файл .env.
-
-Пример содержимого .env:
-
-POSTGRES_DB=stalcraft_wiki
-POSTGRES_USER=stalcraft_user
-POSTGRES_PASSWORD=your_strong_postgres_password
-
-APP_JWT_SECRET=your_very_long_jwt_secret_key_more_than_32_characters
-APP_JWT_EXPIRATION_MS=86400000
-
-APP_ADMIN_USERNAME=admin
-APP_ADMIN_PASSWORD=your_admin_password
-
-APP_UPLOAD_DIR=/app/uploads
-APP_PUBLIC_URL=http://localhost:3000
-
-
-
-## Запуск 
-Из корня проекта выполнить:
-
-docker compose up -d --build
-
-Проверить состояние контейнеров:
-
-docker compose ps
-
-После успешного запуска приложение будет доступно по адресу:
-
-http://localhost:3000
-
