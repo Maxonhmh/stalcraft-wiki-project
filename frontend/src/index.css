@@ -1442,3 +1442,16 @@ img {
     gap: 8px;
   }
 }
+
+
+
+.item-description {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-description-paragraph {
+  margin: 0;
+  line-height: 1.7;
+}

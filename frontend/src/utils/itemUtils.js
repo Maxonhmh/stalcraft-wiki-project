@@ -148,7 +148,10 @@ export function textToString(node) {
   }
 
   if (typeof node === "string") {
-    return node.replaceAll("@", "\n");
+    return node
+      .replaceAll("@", "\n")
+      .replaceAll("\\n", "\n")
+      .trim();
   }
 
   if (typeof node === "number" || typeof node === "boolean") {
@@ -156,7 +159,10 @@ export function textToString(node) {
   }
 
   if (node.lines?.ru) {
-    return String(node.lines.ru).replaceAll("@", "\n");
+    return String(node.lines.ru)
+      .replaceAll("@", "\n")
+      .replaceAll("\\n", "\n")
+      .trim();
   }
 
   if (node.text) {
@@ -165,10 +171,6 @@ export function textToString(node) {
 
   if (node.value) {
     return textToString(node.value);
-  }
-
-  if (node.name) {
-    return textToString(node.name);
   }
 
   if (Array.isArray(node)) {
@@ -187,10 +189,20 @@ export function extractDescription(raw) {
     return "";
   }
 
-  const textBlocks = raw.infoBlocks.filter((block) => block.type === "text");
+  const descriptionBlocks = raw.infoBlocks.filter((block) => {
+    if (block.type !== "text") {
+      return false;
+    }
 
-  return textBlocks
+    const title = textToString(block.title).trim();
+
+
+    return !title;
+  });
+
+  return descriptionBlocks
     .map((block) => textToString(block.text))
+    .map((text) => cleanupItemText(text))
     .filter(Boolean)
     .join("\n\n");
 }
@@ -475,6 +487,22 @@ export function extractKnownCharacteristics(raw, level = 0) {
 
     return true;
   });
+}
+
+
+function cleanupItemText(text) {
+  if (!text) {
+    return "";
+  }
+
+  return String(text)
+    .replaceAll("\\n", "\n")
+    .replace(/\r\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .split("\n")
+    .map((line) => line.trim())
+    .join("\n")
+    .trim();
 }
 
 export function extractItemFeatures(raw) {

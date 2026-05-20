@@ -54,8 +54,7 @@ export default function ItemPage() {
   }, [id]);
 
   const raw = useMemo(() => parseRawJson(item?.rawJson), [item]);
-console.log("RAW ITEM", raw);
-console.log("RAW VARIANTS", raw?._variants, raw?.variants, raw?.upgrades);
+
   const description = useMemo(() => {
     return extractDescription(raw);
   }, [raw]);
@@ -84,7 +83,26 @@ console.log("RAW VARIANTS", raw?._variants, raw?.variants, raw?.upgrades);
     return <section className="page">Предмет не найден.</section>;
   }
 
+
   const rank = getRankInfo(item.rankOrColor);
+
+
+function renderTextParagraphs(text) {
+  if (!text) {
+    return null;
+  }
+
+  return String(text)
+    .replaceAll("\\n", "\n")
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean)
+    .map((paragraph, index) => (
+      <p key={`${index}-${paragraph.slice(0, 24)}`} className="item-description-paragraph">
+        {paragraph}
+      </p>
+    ));
+}
 
   return (
     <section className="page item-detail-page">
@@ -118,9 +136,11 @@ console.log("RAW VARIANTS", raw?._variants, raw?.variants, raw?.upgrades);
           <h2>Описание</h2>
 
           {description ? (
-            <p className="item-description">{description}</p>
-          ) : (
-            <p className="muted">Описание для этого предмета не найдено.</p>
+              <div className="item-description">
+                {renderTextParagraphs(description)}
+              </div>
+            ) : (
+              <p className="muted">Описание для этого предмета не найдено.</p>
           )}
 
           {features.length > 0 && (
